@@ -1,8 +1,8 @@
 IMPORTANT NOTE: Final test run is not yet complete as of uploading this.  Full stability and functionality is not guaranteed.
 
-This code is the code used for my final project in Pragmatics, studying whether the sentiment of words used in a given subreddit (per Hamilton et al. 2016) encodes any meaningful notion of "community values."
+This code is the code used for my final project in Pragmatics, studying whether the sentiment of words used in a given subreddit (per Hamilton et al. 2016) encodes any meaningful notion of "community values."  Please note that when running on the full Reddit Public Comments Corpus, the total runtime is well > 1 day continuous time (on my 4-core machine with 64GB of RAM).
 
-Since I've already finished with this project, I do not intend to provide much or any support for/maintenance of this code.  However, you are free to do what you wish with it, subject to the GNU GPL v2 license terms.
+Since I've already finished with this project, I do not presently intend to provide much or any support for/maintenance of this code.  However, you are free to do what you wish with it, subject to the GNU GPL v2 license terms.
 
 # REQUIREMENTS
 Python 3.6+, 64-bit  (all command line commands below assume this is the only version on your system--if you have multiple Python versions installed, you *must* use the appropriate command for Python 3.6 to run these commands)
@@ -28,7 +28,7 @@ Simply execute the FinalPaper.py file using a 64-bit Python 3.6 or later interpr
 # CONFIG FILE OPTIONS
 The options for the program are stored in the `reddit.conf` file.  All options should  be provided in the form `name=value`.
 
-## Global
+## [Global]
 These are global options that will apply across numerous sections of the program.
 
 `NUM_THREADS`: this is the number of processing threads you want to use.  More threads --> runs faster, but also consumes more memory (on machines with low memory, this can cause errors and crash the program).  In general, set this to, at most, one less than the number of _physical_ CPU cores in your system, unless you're running into MemoryErrors or serious performance issues, in which case set this to 1.
@@ -36,7 +36,7 @@ These are global options that will apply across numerous sections of the program
 `window_size`: the symmetric window size to use when computing the PPMI transform for the text.  This is also used to filter posts by word count at several steps.
 
 
-## CorpusCleaning
+## [CorpusCleaning]
 These options apply to the corpus cleaning stage, i.e. collecting posts, splitting by subreddit, and doing preliminary filtering.
 
 `count_posts`: must be True or False.  If True, the program will do a pass over the raw corpus files and count the total number of posts and record this in a .csv file.  (This step will take several hours and is not necessary--the Subreddit Post Counts.csv file already packaged here contains the results of just such a run).
@@ -46,7 +46,7 @@ These options apply to the corpus cleaning stage, i.e. collecting posts, splitti
 `keep`: A list of subreddit names, which are capitalization-sensitive, to keep.  The program will collect posts from these subreddits into individual files for quicker processing later, and will ignore any other subreddits.  The list can be either a whitespace-separated list (e.g.: AskReddit funny pics gaming), or each subreddit name can be on a new line, but each new line must be indented (see the default reddit.conf for an example of this formatting).
 
 
-## Preprocessing
+## [Preprocessing]
 These options apply to the preprocessing stage, where text is cleaned and filtered more aggressively before final processing.
 
 `threshold`: the threshold argument in Gensim's Phrases() object (consult Gensim documentation for more information; 10 is the default value).
@@ -58,7 +58,7 @@ These options apply to the preprocessing stage, where text is cleaned and filter
 `num_phrasing_rounds`: How many passes over each subreddit to do in order to find phrases.  Each phrasing pass allows two adjacent tokens to be joined, so multiple passes allows the discovery of longer multi-word phrases.  However, passes are fairly time consuming for larger subreddits.
 
 
-## SocialSent
+## [SocialSent]
 These are options for the SocialSent analysis.  Many of the options are parameters in Hamilton et al's original code.
 
 `smoothing`: Exponential smoothing parameter for the PPMI transformation.  0.75 is a good value.
@@ -82,7 +82,7 @@ These are options for the SocialSent analysis.  Many of the options are paramete
 `maxiter`: Maximum number of iterations for the SocialSent matrix multiplication.  After this number of iterations, even if tolerance has not been reached, the model terminates and the sentiment scores are finalized.
 
 
-## ExamplePosts
+## [ExamplePosts]
 These options control the selection of example posts containing terms of interest.
 
 `pull_example_posts`: True or False.  If True, the above processing steps are assumed to have already been run, and thus will not be run again.  The only processing will be pulling example posts from the corpus, containing user-specified words from user-specified subreddits.  If False, the above processing steps are performed, and example posts are NOT pulled.  (you'd need to run the above steps to determine the words you want to pull usage examples of, anyways).
