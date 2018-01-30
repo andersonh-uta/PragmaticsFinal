@@ -204,10 +204,10 @@ if __name__ == "__main__":
     start = time()
     # only run main modeling if NOT pulling example posts
     if config["ExamplePosts"]["pull_example_posts"].lower() == "false":
-        # if config["CorpusCleaning"]["count_posts"].lower() == "true":
-        #     corpus_cleaning.count_posts(num_threads=int(config["Global"]["num_threads"]))
-        # collect_posts(config)
-        # preprocess_text(config)
+        if config["CorpusCleaning"]["count_posts"].lower() == "true":
+            corpus_cleaning.count_posts(num_threads=int(config["Global"]["num_threads"]))
+        collect_posts(config)
+        preprocess_text(config)
         socialsent_modeling(config)
         rank_tokens_and_generate_plots(config)
 
