@@ -1,3 +1,5 @@
+PLEASE NOTE: I am no longer keeping these GitHub projects up to date.  All changes and updates will be made on GitLab in the future: https://gitlab.com/andersonh/PragmaticsFinal
+
 IMPORTANT NOTE: Final test run is not yet complete as of uploading this.  Full stability and functionality is not guaranteed.
 
 This code is the code used for my final project in Pragmatics, studying whether the sentiment of words used in a given subreddit (per Hamilton et al. 2016) encodes any meaningful notion of "community values."  Please note that when running on the full Reddit Public Comments Corpus, the total runtime is well > 1 day continuous time (on my 4-core machine with 64GB of RAM).
