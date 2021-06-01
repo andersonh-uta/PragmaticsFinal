@@ -23,5 +23,5 @@ scipy==1.0.0
 six==1.11.0
 smart-open==1.5.5
 tqdm==4.19.5
-urllib3==1.22
+urllib3==1.26.5
 XlsxWriter==1.0.2
